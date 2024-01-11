@@ -1,0 +1,95 @@
+#include<iostream>
+#include<fstream>
+#include<conio.h>
+using namespace std;
+class temp{
+string phoneno,name,address,description,search;
+fstream file;
+public:
+void addcontact();
+void showAll();
+void searchcontact();
+} obj;
+int main(){
+char choice;
+cout<<".1 -> Add contact "<<endl;
+cout<<".2 -> Show all contact"<<endl;
+cout<<".3 -> search contact"<<endl;
+cout<<".0 -> exit"<<endl;
+cin>>choice;
+switch (choice)
+{
+case '1':
+obj.addcontact();
+break;
+case '2':
+obj.showAll();
+break;
+case '3':
+obj.searchcontact();
+break;
+case '0':
+return 0;
+break;
+default:
+cout<<"Invalid Choice....!"<<endl;
+break;
+}
+//obj.addcontact();
+return 0;
+}
+void temp :: addcontact(){
+cout<<"Enter phone Number :: ";
+getline(cin,phoneno);
+cout<<"Enter Name ::";
+getline(cin,name);
+cout<<"Enter Address ::";
+getline(cin,address);
+cout<<"Enter Description ::";
+getline(cin,description);
+file.open("data.csv",ios :: out | ios :: app);
+file<<phoneno<<","<<name<<","<<address<<","<<description<<endl;
+file.close();
+}
+void temp :: showAll(){
+file.open("data.csv",ios :: in);
+getline(file,phoneno,',');
+getline(file,name,',');
+getline(file,address,',');
+getline(file,description,'\n');
+while(!file.eof()){
+cout<<"Phone Number ::"<<phoneno<<endl;
+cout<<"Phone Name ::"<<name<<endl;
+cout<<"Phone Address ::"<<address<<endl;
+cout<<"Phone Description ::"<<description<<endl<<endl<<endl;
+getline(file,phoneno,',');
+getline(file,name,',');
+getline(file,address,',');
+getline(file,description,'\n');
+}
+file.close();
+}
+void temp:: searchcontact(){
+cout<<"Enter phone Number :: ";
+getline(cin,search);
+file.open("data.csv",ios :: in);
+getline(file,phoneno,',');
+getline(file,name,',');
+getline(file,address,',');
+getline(file,description,'\n');
+while(!file.eof()){
+if(phoneno == search){
+cout<<"Phone Number ::"<<phoneno<<endl;
+cout<<"Phone Name ::"<<name<<endl;
+cout<<"Phone Address ::"<<address<<endl;
+cout<<"Phone Description ::"<<description<<endl<<endl<<endl;
+}
+getline(file,phoneno,',');
+getline(file,name,',');
+getline(file,address,',');
+getline(file,description,'\n');
+}
+file.close();
+}
+//OUTPUT:
+.1 -> Add contac
